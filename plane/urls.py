@@ -1,9 +1,9 @@
 from django.urls import path
 
-from plane.views import UserRedisView
+from plane.views import PlaneRedisView
 
 app_name = "plane"
 
 urlpatterns = [
-    path("", UserRedisView.as_view(), name="all_planes")
+    path("", PlaneRedisView.as_view(), name="all_planes")
 ]

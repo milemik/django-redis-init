@@ -8,7 +8,7 @@ from plane.redis_plane_helper import PlanesRedis
 from plane.serializers import UserRedisSerializer
 
 
-class UserRedisView(APIView):
+class PlaneRedisView(APIView):
 
     def get(self, request):
         data = PlanesRedis().get_planes()
