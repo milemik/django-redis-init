@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "redisdjangotest"
+version = "0.1.0"
+description = ""
+authors = ["Ivan <milemik68@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.1.2"
+djangorestframework = "^3.14.0"
+redis = "^4.3.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
