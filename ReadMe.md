@@ -15,6 +15,8 @@ Just a simple django app with planes
 3. Start redis using docker using this command ```bash run_redis.sh```
 4. Start django app: ```python manage.py runserver```
 
+##### NOTE: no need to run migrations for these example
+
 
 ## Endpoint:
 
