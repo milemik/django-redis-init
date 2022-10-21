@@ -22,6 +22,5 @@ class PlaneRedisView(APIView):
         return Response({"MESSAGE": "PLANE ADDED"}, status=status.HTTP_201_CREATED)
 
     def put(self, request):
-        print(request.data)
         PlanesRedis().edit_plane(new_data=request.data)
         return Response({"MESSAGE": "PLANE EDITED"})
