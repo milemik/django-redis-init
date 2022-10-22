@@ -120,5 +120,14 @@ class TestPlaneRedisView(TestPlanesRedis):
         self.assertFalse(response.json()[0].get("plane_active"))
         self.tearDown()
 
+
+    def test_delete(self):
+        self.client.post(self.url, self.plane_data, format="json")
+        result = self.client.get(self.url)
+        self.assertEqual(len(result.json()), 1)
+
+        response = self.client.delete(self.url, data={"model_key": self.plane_data.get("model_key")})
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
     def tearDown(self) -> None:
         redis_cli.delete("planes_123b")

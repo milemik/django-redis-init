@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -22,3 +23,10 @@ class PlaneRedisView(APIView):
     def put(self, request):
         PlanesRedis().edit_plane(new_data=request.data)
         return Response({"MESSAGE": "PLANE EDITED"})
+
+    def delete(self, request):
+        model_key = request.data.get("model_key")
+        if model_key is None:
+            raise Http404
+        PlanesRedis().delete_plane(model_key=request.data.get)
+        return Response({"MESSAGE": "PLANE DELETED"}, status=status.HTTP_204_NO_CONTENT)
