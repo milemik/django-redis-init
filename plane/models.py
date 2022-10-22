@@ -1,8 +1,6 @@
 import json
 from dataclasses import dataclass
 
-from django.db import models
-
 
 @dataclass
 class PlaneRedisModel:

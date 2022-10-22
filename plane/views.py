@@ -3,12 +3,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from plane.redis_plane_helper import PlanesRedis
+from plane.redis_helper import PlanesRedis
 from plane.serializers import UserRedisSerializer
 
 
 class PlaneRedisView(APIView):
-
     def get(self, request):
         data = PlanesRedis().get_planes()
         serializer = UserRedisSerializer(data=data, many=True)

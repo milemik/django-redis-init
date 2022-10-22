@@ -5,7 +5,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from plane.redis_plane_helper import PlanesRedis
+from plane.redis_helper import PlanesRedis
 
 redis_cli = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=settings.REDIS_DB)
 
@@ -92,7 +92,6 @@ class TestPlanesRedis(TestCase):
 
 
 class TestPlaneRedisView(TestPlanesRedis):
-
     def setUp(self) -> None:
         self.url = reverse("plane:all_planes")
         self.client = APIClient()
@@ -119,7 +118,6 @@ class TestPlaneRedisView(TestPlanesRedis):
         response = self.client.get(self.url)
         self.assertFalse(response.json()[0].get("plane_active"))
         self.tearDown()
-
 
     def test_delete(self):
         self.client.post(self.url, self.plane_data, format="json")
