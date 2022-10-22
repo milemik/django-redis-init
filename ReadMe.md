@@ -59,3 +59,13 @@ curl \
 ###### NOTE: PUT request must include ```model_key``` in data
 
 #### NOTE: Don't forget to kill/stop docker container when finished
+
+
+## Test
+
+In order to run tests you must run redis ( example: using docker as explained before )
+
+To run test simply run:
+```commandline
+python manage.py test
+```
