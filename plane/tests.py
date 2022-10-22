@@ -1,5 +1,3 @@
-from unittest.mock import patch
-
 import redis
 from django.conf import settings
 from django.test import TestCase
@@ -22,7 +20,7 @@ class TestPlanesRedis(TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         pr = PlanesRedis()
-        pr.KEY = "test"
+        pr.SCHEMA = "test"
         cls.planes_redis = pr
         cls.plane_data = {"model_key": "123a", "plane_name": "Ai14", "plane_active": True}
 
@@ -73,6 +71,20 @@ class TestPlanesRedis(TestCase):
 
         self.assertEqual(result, [new_plane_data])
         self.tearDownClass()
+
+    def test_delete(self):
+        self.planes_redis.add_plane(data=self.plane_data)
+        result = self.planes_redis.get_planes()
+        self.assertEqual(result, [self.plane_data])
+
+        self.planes_redis.delete_plane(model_key=self.plane_data.get("model_key"))
+        result = self.planes_redis.get_planes()
+        self.assertEqual(result, [])
+
+    def test_delete_non_existing_key(self):
+        self.planes_redis.delete_plane(model_key="dont_exist")
+        result = self.planes_redis.get_planes()
+        self.assertEqual(result, [])
 
     @classmethod
     def tearDownClass(cls) -> None:

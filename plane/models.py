@@ -6,6 +6,7 @@ from django.db import models
 
 @dataclass
 class PlaneRedisModel:
+    """Data model that will be saved in redis DB"""
     model_key: str
     plane_name: str
     plane_active: bool

@@ -9,13 +9,13 @@ redis_cli = redis.Redis(host=settings.REDIS_HOST, port=settings.REDIS_PORT, db=s
 
 
 class PlanesRedis:
-    KEY = "planes"
+    SCHEMA = "planes"
 
     def get_key(self, model_key: str) -> str:
-        return f"{self.KEY}_{model_key}"
+        return f"{self.SCHEMA}_{model_key}"
 
     def get_planes(self) -> list:
-        all_planes = redis_cli.keys(f"{self.KEY}_*")
+        all_planes = redis_cli.keys(f"{self.SCHEMA}_*")
         result = list()
         for plane in all_planes:
             result.append(json.loads(redis_cli.get(plane)))
@@ -23,7 +23,7 @@ class PlanesRedis:
 
     def add_plane(self, data) -> None:
         new_plane = PlaneRedisModel(**data)
-        redis_cli.set(f"{self.KEY}_{new_plane.model_key}", json.dumps(new_plane.to_json()))
+        redis_cli.set(f"{self.SCHEMA}_{new_plane.model_key}", json.dumps(new_plane.to_json()))
 
     def edit_plane(self, new_data: dict) -> None:
         plane_key = self.get_key(model_key=new_data.get("model_key"))
@@ -37,3 +37,7 @@ class PlanesRedis:
                 old_data_dict[k] = v
 
         redis_cli.set(plane_key, json.dumps(old_data_dict))
+
+    def delete_plane(self, model_key: str) -> None:
+        plane_key = self.get_key(model_key=model_key)
+        redis_cli.delete(plane_key)
